@@ -1,4 +1,4 @@
-unit Unit1;
+п»їunit Unit1;
 
 interface
 
@@ -132,7 +132,7 @@ If button1.Caption='Start' then
   end else
   begin
   Image1.Picture.LoadFromFile('img\no.jpg');
-  trtip:='Монитор остановлен';
+  trtip:='РњРѕРЅРёС‚РѕСЂ РѕСЃС‚Р°РЅРѕРІР»РµРЅ';
   Ic(3,Application.Icon);
   premap:='';
   Timer2.Enabled:=false;
@@ -143,9 +143,9 @@ If button1.Caption='Start' then
   mapname.Caption:='';
   modname.Caption:='';
   players.Caption:='';
-  t1.Caption:='Команда 1';
+  t1.Caption:='РљРѕРјР°РЅРґР° 1';
   t1n.Caption:='';
-  t2.Caption:='Команда 2';
+  t2.Caption:='РљРѕРјР°РЅРґР° 2';
   t2n.Caption:='';
   Timer1.Enabled:=false;
   WSocket1.Close;
@@ -169,7 +169,7 @@ end;
 
 function TForm1.parcing(param, strt: String): String;
 var
-i,f:integer;           //   Функция для извлечения конкретного параметра
+i,f:integer;           //   Р¤СѓРЅРєС†РёСЏ РґР»СЏ РёР·РІР»РµС‡РµРЅРёСЏ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ РїР°СЂР°РјРµС‚СЂР°
 tmp:String;
 tm:Boolean;
 begin
@@ -195,14 +195,14 @@ end;
 
 procedure TForm1.parseit(str: String);
 var tmp,smin,ssec:String;
-min,sec,i,j:Byte;                //   Основная функция для извлечения из запроса
-osp,alp:Byte;                  //  полезных данных. Использует parcing
+min,sec,i,j:Byte;                //   РћСЃРЅРѕРІРЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РёР·РІР»РµС‡РµРЅРёСЏ РёР· Р·Р°РїСЂРѕСЃР°
+osp,alp:Byte;                  //  РїРѕР»РµР·РЅС‹С… РґР°РЅРЅС‹С…. РСЃРїРѕР»СЊР·СѓРµС‚ parcing
 all:integer;
 allplrs: array[0..64] of tplayer;
 tmppl: tplayer;
 begin
 
-tmp:=parcing('gameId',str);      // Извлекаем ID игры
+tmp:=parcing('gameId',str);      // РР·РІР»РµРєР°РµРј ID РёРіСЂС‹
 if length(tmp)>0 then
 begin
 bfmod:=tmp;
@@ -211,21 +211,21 @@ if tmp='bf1942' then modname.Caption:='Battlefield 1942' else
 modname.Caption:=tmp;
 end;
 
-tmp:=parcing('gametype',str);     // Извлекаем тип
+tmp:=parcing('gametype',str);     // РР·РІР»РµРєР°РµРј С‚РёРї
 if length(tmp)>0 then
 begin
 bftyp:=tmp;
 if tmp='conquest' then gametype.Caption:='Conquest' else
-if tmp='ctf' then gametype.Caption:='CTF, захват флага.' else
+if tmp='ctf' then gametype.Caption:='CTF, Р·Р°С…РІР°С‚ С„Р»Р°РіР°.' else
 modname.Caption:=tmp;
 end;
 
 
-tmp:=parcing('hostname',str);    // Имя сервера
+tmp:=parcing('hostname',str);    // РРјСЏ СЃРµСЂРІРµСЂР°
 if length(tmp)>0 then
 hostname.Caption:=tmp;
 
-tmp:=parcing('mapname',str);    // Имя карты
+tmp:=parcing('mapname',str);    // РРјСЏ РєР°СЂС‚С‹
 if length(tmp)>0 then
 mapname.Caption:=tmp;
 
@@ -238,7 +238,7 @@ if (not (tmp=premap)) then
      Image1.Picture.LoadFromFile('img\no.jpg');
 
 
-                       // Будильник по названию карты
+                       // Р‘СѓРґРёР»СЊРЅРёРє РїРѕ РЅР°Р·РІР°РЅРёСЋ РєР°СЂС‚С‹
   if (Form2.CheckBox1.Checked) and (pos(Form2.Edit2.Text,tmp)>0) then
     begin
     timer2.Enabled:=true;
@@ -252,7 +252,7 @@ premap:=tmp;
 
 
 tmp:=parcing('roundTimeRemain',str);
-if length(tmp)>0 then            //  Оставшееся время
+if length(tmp)>0 then            //  РћСЃС‚Р°РІС€РµРµСЃСЏ РІСЂРµРјСЏ
   begin
   all:=StrToInt(tmp);
   min:=all div 60;
@@ -262,7 +262,7 @@ if length(tmp)>0 then            //  Оставшееся время
   lefttime.Caption:=smin+':'+ssec;
 
 
-                      // Будильник по новой карте
+                      // Р‘СѓРґРёР»СЊРЅРёРє РїРѕ РЅРѕРІРѕР№ РєР°СЂС‚Рµ
   if (Form2.CheckBox3.Checked) and (all=0) then
     begin
     Timer2.Enabled:=True;
@@ -275,21 +275,21 @@ if length(tmp)>0 then            //  Оставшееся время
 
 
 
-    //  Тут определяем какая команда ось, а какая союзники
+    //  РўСѓС‚ РѕРїСЂРµРґРµР»СЏРµРј РєР°РєР°СЏ РєРѕРјР°РЅРґР° РѕСЃСЊ, Р° РєР°РєР°СЏ СЃРѕСЋР·РЅРёРєРё
 
 tmp:=parcing('axis_team_ratio',str);
 if length(tmp)>0 then
 if tmp='1' then
 begin
-t2.Caption:='Союзники';
+t2.Caption:='РЎРѕСЋР·РЅРёРєРё';
 t2n.Font.Color:=clNavy;
-t1.Caption:='Ось';
+t1.Caption:='РћСЃСЊ';
 t1n.Font.Color:=clMaroon;
 end else
 begin
-t1.Caption:='Союзники';
+t1.Caption:='РЎРѕСЋР·РЅРёРєРё';
 t1n.Font.Color:=clNavy;
-t2.Caption:='Ось';
+t2.Caption:='РћСЃСЊ';
 t2n.Font.Color:=clMaroon;
 end;
 
@@ -305,10 +305,10 @@ t2n.Caption:=tmp;
 //        ======
 
 
-trtip:='Карта: '+mapname.Caption+#13+'Игроков: '+FloatToStr(plrs)+#13+'Счёт: '+t1n.Caption+' - '+t2n.Caption+#13+'Осталось: '+lefttime.Caption;
+trtip:='РљР°СЂС‚Р°: '+mapname.Caption+#13+'РРіСЂРѕРєРѕРІ: '+FloatToStr(plrs)+#13+'РЎС‡С‘С‚: '+t1n.Caption+' - '+t2n.Caption+#13+'РћСЃС‚Р°Р»РѕСЃСЊ: '+lefttime.Caption;
 
 
-//         Выводим список игроков:
+//         Р’С‹РІРѕРґРёРј СЃРїРёСЃРѕРє РёРіСЂРѕРєРѕРІ:
 
 numb:=numb+1;
 
@@ -317,14 +317,14 @@ begin
 numb:=0;
 
 If (trayed=true) then
-  Ic(3,Application.Icon);  //     Если в трее, то обновим!
+  Ic(3,Application.Icon);  //     Р•СЃР»Рё РІ С‚СЂРµРµ, С‚Рѕ РѕР±РЅРѕРІРёРј!
 
 if plrs>0 then
 begin
 for i:=0 to plrs-1 do
   begin
 
-  //    Заносим в массив:
+  //    Р—Р°РЅРѕСЃРёРј РІ РјР°СЃСЃРёРІ:
 
   tmp:=parcing('team_'+FloatToStr(i),str);
   if tmp='1' then allplrs[i].team:=True else allplrs[i].team:=False;
@@ -343,7 +343,7 @@ for i:=0 to plrs-1 do
   end;
 
   //      ==============
-  //        Сортируем:
+  //        РЎРѕСЂС‚РёСЂСѓРµРј:
 
 for i:=0 to plrs-1 do
   for j:=i to plrs-1 do
@@ -355,7 +355,7 @@ for i:=0 to plrs-1 do
       end;
 
   //      ==============
-  //    Выводим в таблицу:
+  //    Р’С‹РІРѕРґРёРј РІ С‚Р°Р±Р»РёС†Сѓ:
 
 for i:=0 to plrs-1 do
   begin
@@ -404,8 +404,8 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
 try
-WSocket1.SendStr('\status\');      // Основная команда, при отправке которой
-                              //  на серер, он выдаёт нам всё информацию
+WSocket1.SendStr('\status\');      // РћСЃРЅРѕРІРЅР°СЏ РєРѕРјР°РЅРґР°, РїСЂРё РѕС‚РїСЂР°РІРєРµ РєРѕС‚РѕСЂРѕР№
+                              //  РЅР° СЃРµСЂРµСЂ, РѕРЅ РІС‹РґР°С‘С‚ РЅР°Рј РІСЃС‘ РёРЅС„РѕСЂРјР°С†РёСЋ
 except
 Button1.Click;
 Timer1.Enabled:=False;
@@ -415,13 +415,13 @@ end;
 procedure TForm1.WSocket1DataAvailable(Sender: TObject; ErrCode: Word);
 var tmp,tmps:String;
 begin
-tmps:=WSocket1.ReceiveStr;    //  Получаем строку с ответом
+tmps:=WSocket1.ReceiveStr;    //  РџРѕР»СѓС‡Р°РµРј СЃС‚СЂРѕРєСѓ СЃ РѕС‚РІРµС‚РѕРј
 
 //Label2.Caption:=tmps;
 
-wtmps:=wtmps+tmps;           //Сохраняем полученные данные, для дальнейшей обработки
+wtmps:=wtmps+tmps;           //РЎРѕС…СЂР°РЅСЏРµРј РїРѕР»СѓС‡РµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ, РґР»СЏ РґР°Р»СЊРЅРµР№С€РµР№ РѕР±СЂР°Р±РѕС‚РєРё
 
-tmp:=parcing('numplayers',wtmps);    //  Получаем количество игроков
+tmp:=parcing('numplayers',wtmps);    //  РџРѕР»СѓС‡Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РёРіСЂРѕРєРѕРІ
 
 
 if length(tmp)>0 then
@@ -429,7 +429,7 @@ if length(tmp)>0 then
   players.Caption:=tmp;
   plrs:=StrToInt(tmp);
 
-                       // Будильник по количеству человек
+                       // Р‘СѓРґРёР»СЊРЅРёРє РїРѕ РєРѕР»РёС‡РµСЃС‚РІСѓ С‡РµР»РѕРІРµРє
   if (Form2.CheckBox2.Checked) and (plrs>=Form2.SpinEdit1.Value) then
     begin
     timer2.Enabled:=true;
@@ -440,10 +440,10 @@ if length(tmp)>0 then
 
 if ((pos('playername_'+FloatToStr(plrs-1),wtmps)>1) or (plrs=0)) then
   begin
-  parseit(wtmps);     //    Если игроков 0, или-же игроков не 0, и
-  wtmps:='';          // при этом мы получили информацию об игроках
-  end;                // то это означает что пришли все данные, и
-                      // мы можем начать парсить их!
+  parseit(wtmps);     //    Р•СЃР»Рё РёРіСЂРѕРєРѕРІ 0, РёР»Рё-Р¶Рµ РёРіСЂРѕРєРѕРІ РЅРµ 0, Рё
+  wtmps:='';          // РїСЂРё СЌС‚РѕРј РјС‹ РїРѕР»СѓС‡РёР»Рё РёРЅС„РѕСЂРјР°С†РёСЋ РѕР± РёРіСЂРѕРєР°С…
+  end;                // С‚Рѕ СЌС‚Рѕ РѕР·РЅР°С‡Р°РµС‚ С‡С‚Рѕ РїСЂРёС€Р»Рё РІСЃРµ РґР°РЅРЅС‹Рµ, Рё
+                      // РјС‹ РјРѕР¶РµРј РЅР°С‡Р°С‚СЊ РїР°СЂСЃРёС‚СЊ РёС…!
 
 end;
 
@@ -452,22 +452,22 @@ var
 f:TextFile;
 tmp:String;
 begin
-trtip:='Монитор остановлен';
+trtip:='РњРѕРЅРёС‚РѕСЂ РѕСЃС‚Р°РЅРѕРІР»РµРЅ';
 trayed:=false;    
 form1.Top:=Round(Screen.Height/2-Form1.Height/2);
 form1.Left:=Round(Screen.Width/2-Form1.Width/2);
 
-StringGrid1.Rows[0][0]:='Игрок';
-StringGrid1.Rows[0][1]:='Очк.';
-StringGrid1.Rows[0][2]:='Уб.';
-StringGrid1.Rows[0][3]:='См.';
-StringGrid1.Rows[0][4]:='Пнг.';
+StringGrid1.Rows[0][0]:='РРіСЂРѕРє';
+StringGrid1.Rows[0][1]:='РћС‡Рє.';
+StringGrid1.Rows[0][2]:='РЈР±.';
+StringGrid1.Rows[0][3]:='РЎРј.';
+StringGrid1.Rows[0][4]:='РџРЅРі.';
 
-StringGrid2.Rows[0][0]:='Игрок';
-StringGrid2.Rows[0][1]:='Очк.';
-StringGrid2.Rows[0][2]:='Уб.';
-StringGrid2.Rows[0][3]:='См.';
-StringGrid2.Rows[0][4]:='Пнг.';
+StringGrid2.Rows[0][0]:='РРіСЂРѕРє';
+StringGrid2.Rows[0][1]:='РћС‡Рє.';
+StringGrid2.Rows[0][2]:='РЈР±.';
+StringGrid2.Rows[0][3]:='РЎРј.';
+StringGrid2.Rows[0][4]:='РџРЅРі.';
 
 try
 AssignFile(f,'conf.ini');
@@ -509,7 +509,7 @@ end;
 
 procedure TForm1.Timer2Timer(Sender: TObject);
 var
-  str,Windir: string;       //  Звенит будильник
+  str,Windir: string;       //  Р—РІРµРЅРёС‚ Р±СѓРґРёР»СЊРЅРёРє
   WindirP: PChar;
 begin
 WinDirP := StrAlloc(MAX_PATH);
@@ -517,9 +517,9 @@ GetWindowsDirectory(WinDirP, MAX_PATH);
 WinDir := StrPas(WinDirP);
 str:=windir+'\Media\ringin.wav';
 PlaySound(PChar(str), 0, SND_ASYNC);
-              //   Получаем путь к папке windows и проигрываем звонок,
-              // который в ней лежит. Это чтоб не увеличивать архив с
-              // программой.
+              //   РџРѕР»СѓС‡Р°РµРј РїСѓС‚СЊ Рє РїР°РїРєРµ windows Рё РїСЂРѕРёРіСЂС‹РІР°РµРј Р·РІРѕРЅРѕРє,
+              // РєРѕС‚РѕСЂС‹Р№ РІ РЅРµР№ Р»РµР¶РёС‚. Р­С‚Рѕ С‡С‚РѕР± РЅРµ СѓРІРµР»РёС‡РёРІР°С‚СЊ Р°СЂС…РёРІ СЃ
+              // РїСЂРѕРіСЂР°РјРјРѕР№.
 end;
 
 procedure TForm1.ComboBox1KeyUp(Sender: TObject; var Key: Word;
@@ -527,7 +527,7 @@ procedure TForm1.ComboBox1KeyUp(Sender: TObject; var Key: Word;
 begin
 If key=13 then
     Button1Click(Sender);
-    // Если пользователь нажмёт на Enter, это будет равносильно нажатию на кнопку
+    // Р•СЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р¶РјС‘С‚ РЅР° Enter, СЌС‚Рѕ Р±СѓРґРµС‚ СЂР°РІРЅРѕСЃРёР»СЊРЅРѕ РЅР°Р¶Р°С‚РёСЋ РЅР° РєРЅРѕРїРєСѓ
 end;
 
 procedure TForm1.Ic(n: Integer; Icon: TIcon);
@@ -559,9 +559,9 @@ begin
 if Msg.WParam = SC_MINIMIZE then
 begin
 trayed:=True;
-Ic(1, Application.Icon); // Добавляем значок в трей
-ShowWindow(Application.Handle, SW_HIDE); // Скрываем программу
-ShowWindow(Handle, SW_HIDE); // Скрываем программу
+Ic(1, Application.Icon); // Р”РѕР±Р°РІР»СЏРµРј Р·РЅР°С‡РѕРє РІ С‚СЂРµР№
+ShowWindow(Application.Handle, SW_HIDE); // РЎРєСЂС‹РІР°РµРј РїСЂРѕРіСЂР°РјРјСѓ
+ShowWindow(Handle, SW_HIDE); // РЎРєСЂС‹РІР°РµРј РїСЂРѕРіСЂР°РјРјСѓ
 end
 else
 inherited;
@@ -575,37 +575,37 @@ end;
 procedure TForm1.IconMouse(var Msg: TMessage);
 var p: tpoint;
 begin
-GetCursorPos(p); // Запоминаем координаты курсора мыши
-case Msg.LParam of // Проверяем какая кнопка была нажата
-  WM_LBUTTONUP, WM_LBUTTONDBLCLK: {Действия, выполняемый по одинарному или двойному щел?ку левой кнопки мыши на зна?ке. В нашем слу?ае это просто активация приложения}
+GetCursorPos(p); // Р—Р°РїРѕРјРёРЅР°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РєСѓСЂСЃРѕСЂР° РјС‹С€Рё
+case Msg.LParam of // РџСЂРѕРІРµСЂСЏРµРј РєР°РєР°СЏ РєРЅРѕРїРєР° Р±С‹Р»Р° РЅР°Р¶Р°С‚Р°
+  WM_LBUTTONUP, WM_LBUTTONDBLCLK: {Р”РµР№СЃС‚РІРёСЏ, РІС‹РїРѕР»РЅСЏРµРјС‹Р№ РїРѕ РѕРґРёРЅР°СЂРЅРѕРјСѓ РёР»Рё РґРІРѕР№РЅРѕРјСѓ С‰РµР»?РєСѓ Р»РµРІРѕР№ РєРЅРѕРїРєРё РјС‹С€Рё РЅР° Р·РЅР°?РєРµ. Р’ РЅР°С€РµРј СЃР»Сѓ?Р°Рµ СЌС‚Рѕ РїСЂРѕСЃС‚Рѕ Р°РєС‚РёРІР°С†РёСЏ РїСЂРёР»РѕР¶РµРЅРёСЏ}
     begin
     trayed:=false;
-    Ic(2, Application.Icon); // Удаляем значок из трея
-    ShowWindow(Application.Handle, SW_SHOW); // Восстанавливаем окно программы
-    ShowWindow(Handle, SW_SHOW); // Восстанавливаем окно программы
+    Ic(2, Application.Icon); // РЈРґР°Р»СЏРµРј Р·РЅР°С‡РѕРє РёР· С‚СЂРµСЏ
+    ShowWindow(Application.Handle, SW_SHOW); // Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕРєРЅРѕ РїСЂРѕРіСЂР°РјРјС‹
+    ShowWindow(Handle, SW_SHOW); // Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕРєРЅРѕ РїСЂРѕРіСЂР°РјРјС‹
     end;
-  WM_RBUTTONUP: {Действия, выполняемый по одинарному щелчку правой кнопки мыши}
+  WM_RBUTTONUP: {Р”РµР№СЃС‚РІРёСЏ, РІС‹РїРѕР»РЅСЏРµРјС‹Р№ РїРѕ РѕРґРёРЅР°СЂРЅРѕРјСѓ С‰РµР»С‡РєСѓ РїСЂР°РІРѕР№ РєРЅРѕРїРєРё РјС‹С€Рё}
     begin
-    SetForegroundWindow(Handle); // Восстанавливаем программу в качестве переднего окна
-    PopupMenu1.Popup(p.X, p.Y); // Заставляем всплыть тот самый TPopUp о котором я говорил ?уть раньше
-    PostMessage(Handle, WM_NULL, 0, 0) // Обнуляем сообщение
+    SetForegroundWindow(Handle); // Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїСЂРѕРіСЂР°РјРјСѓ РІ РєР°С‡РµСЃС‚РІРµ РїРµСЂРµРґРЅРµРіРѕ РѕРєРЅР°
+    PopupMenu1.Popup(p.X, p.Y); // Р—Р°СЃС‚Р°РІР»СЏРµРј РІСЃРїР»С‹С‚СЊ С‚РѕС‚ СЃР°РјС‹Р№ TPopUp Рѕ РєРѕС‚РѕСЂРѕРј СЏ РіРѕРІРѕСЂРёР» ?СѓС‚СЊ СЂР°РЅСЊС€Рµ
+    PostMessage(Handle, WM_NULL, 0, 0) // РћР±РЅСѓР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ
     end;
   end;
 end;
 
-procedure TForm1.About1Click(Sender: TObject);   // Окно о программе:
+procedure TForm1.About1Click(Sender: TObject);   // РћРєРЅРѕ Рѕ РїСЂРѕРіСЂР°РјРјРµ:
 begin
-Application.MessageBox(PChar('BFMon v1.5, 2009'+#13+'by bak'+#13+'Для UAPLAYER.com'+#13+'& bf.maxnet.ua'),'О Программе');
+Application.MessageBox(PChar('BFMon v1.5, 2009'+#13+'by bak'+#13+'Р”Р»СЏ UAPLAYER.com'+#13+'& bf.maxnet.ua'),'Рћ РџСЂРѕРіСЂР°РјРјРµ');
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
 begin
-Form2.Show;    // Показываем окно с настройками
+Form2.Show;    // РџРѕРєР°Р·С‹РІР°РµРј РѕРєРЅРѕ СЃ РЅР°СЃС‚СЂРѕР№РєР°РјРё
 end;
 
 procedure TForm1.N2Click(Sender: TObject);
 begin
-Timer2.Enabled:=False;     // Останавливаем звонок будильника
+Timer2.Enabled:=False;     // РћСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РІРѕРЅРѕРє Р±СѓРґРёР»СЊРЅРёРєР°
 end;
 
 end.
